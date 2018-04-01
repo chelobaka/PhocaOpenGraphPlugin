@@ -123,6 +123,7 @@ class plgContentPhocaOpenGraph extends JPlugin {
     $config   = JFactory::getConfig();
     $type   = $this->params->get('render_type', 1);
     $desc_intro = $this->params->get('desc_intro', 0);
+    $force_scheme = $this->params->get('force_scheme', 0);
 
     // We need help variables as we cannot change the $row variable - such then will influence global settings
     $thisDesc   = '';
@@ -290,17 +291,20 @@ class plgContentPhocaOpenGraph extends JPlugin {
 
     // END IMAGE
 
-    //URL
+    // URL begin
+    $uri = '';
     if ($this->params->get('url'.$suffix, '') != '') {
-      $this->renderTag('og:url', $this->params->get('url'.$suffix, ''), $type);
+      $uri = $this->params->get('url'.$suffix, '');
     } else {
-      //} else if ((int)$row->id > 0) {
-      //$url = ContentHelperRoute::getArticleRoute($row->id);
-      //$document->setMetadata('og:url', JRoute::_($url));
-      $uri  = JFactory::getURI();
-      $this->renderTag('og:url', $uri->toString(), $type);
+      $uri  = JFactory::getURI()->toString();
     }
-
+    if ($force_scheme == 1) {
+      $uri = preg_replace("/^https:/", "http:", $uri);
+    } else if ($force_scheme == 2) {
+      $uri = preg_replace("/^http:/", "https:", $uri);
+    }
+    $this->renderTag('og:url', $uri, $type);
+    // URL end
 
     // Site Name
     if ($this->params->get('site_name'.$suffix, '') != '') {

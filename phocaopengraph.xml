@@ -222,6 +222,12 @@
 
       <field name="app_id" type="text" default="" label="PLG_CONTENT_PHOCA_OPEN_GRAPH_APP_ID_LABEL" description="PLG_CONTENT_PHOCA_OPEN_GRAPH_APP_ID_DESC" />
 
+      <field name="force_scheme" type="list" default="0" label="PLG_CONTENT_PHOCA_OPEN_GRAPH_FORCE_SCHEME" description="PLG_CONTENT_PHOCA_OPEN_GRAPH_FORCE_SCHEME_DESC">
+        <option value="0">PLG_CONTENT_PHOCA_OPEN_GRAPH_DONT_MODIFY</option>
+        <option value="1">PLG_CONTENT_PHOCA_OPEN_GRAPH_FORCE_HTTP</option>
+        <option value="2">PLG_CONTENT_PHOCA_OPEN_GRAPH_FORCE_HTTPS</option>
+      </field>
+
       <field name="other" type="textarea" default="" label="PLG_CONTENT_PHOCA_OPEN_GRAPH_OTHER_PROPERTIES_LABEL" description="PLG_CONTENT_PHOCA_OPEN_GRAPH_OTHER_PROPERTIES_DESC" />
 
       <field name="render_type" type="list" default="1" label="PLG_CONTENT_PHOCA_OPEN_GRAPH_RENDER_TYPE_LABEL" description="PLG_CONTENT_PHOCA_OPEN_GRAPH_RENDER_TYPE_DESC">
