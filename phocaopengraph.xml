@@ -275,7 +275,4 @@
 			</fieldset>
 		</fields>
 	</config>
-	<updateservers>
-		<server type="extension" priority="1" name="updates"><![CDATA[https://raw.githubusercontent.com/PhocaCz/PhocaOpenGraphPlugin/master/manifest.xml]]></server>
-	</updateservers>
 </extension>
