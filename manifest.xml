@@ -6,7 +6,7 @@
     <element>phocaopengraph</element>
     <folder>content</folder>
     <type>plugin</type>
-    <version>3.1.2</version>
+    <version>3.1.2-m1</version>
     <infourl title="Phoca Open Graph">http://www.phoca.cz/news</infourl>
     <tags>
       <tag>stable</tag>
