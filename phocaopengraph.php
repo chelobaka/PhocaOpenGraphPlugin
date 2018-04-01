@@ -198,20 +198,20 @@ class plgContentPhocaOpenGraph extends JPlugin {
       $pictures = json_decode($row->images);
     }
 
-    $imgSet = 0;
+    $imgSet = False;
 
     if ($this->params->get('image'.$suffix, '') != '' && $parameterImage == 1) {
       $this->renderTag('og:image', JURI::base(false).$this->params->get('image'.$suffix, ''), $type);
-      $imgSet = 1;
+      $imgSet = True;
     } else if ($thisImg != ''){
       $this->renderTag('og:image', JURI::base(false).$thisImg, $type);
-      $imgSet = 1;
+      $imgSet = True;
     } else if (isset($pictures->{'image_intro'}) && $pictures->{'image_intro'} != '') {
       $this->renderTag('og:image', JURI::base(false).$pictures->{'image_intro'}, $type);
-      $imgSet = 1;
+      $imgSet = True;
     } else if (isset($pictures->{'image_fulltext'}) && $pictures->{'image_fulltext'} != '') {
       $this->renderTag('og:image', JURI::base(false).$pictures->{'image_fulltext'}, $type);
-      $imgSet = 1;
+      $imgSet = True;
     } else {
       // Try to find image in article
 
@@ -258,11 +258,11 @@ class plgContentPhocaOpenGraph extends JPlugin {
 
         $this->renderTag('og:image', $linkImg, $type);
         //$this->renderTag('og:image', JURI::base(false).$src[1], $type);
-        $imgSet = 1;
+        $imgSet = True;
       }
 
       // Try to find image in images/phocaopengraph folder
-      if ($imgSet == 0) {
+      if ($imgSet == False) {
         if (isset($row->id) && (int)$row->id > 0) {
 
           jimport( 'joomla.filesystem.file' );
@@ -278,15 +278,22 @@ class plgContentPhocaOpenGraph extends JPlugin {
 
           if ($imgPath != '') {
             $this->renderTag('og:image', $imgPath, $type);
-            $imgSet = 1;
+            $imgSet = True;
           }
         }
       }
     }
 
     // If still image not set and parameter Image is set as last, then try to add the parameter image
-    if ($imgSet == 0 && $this->params->get('image'.$suffix, '') != '' && $parameterImage == 0) {
+    if ($imgSet == False && $this->params->get('image'.$suffix, '') != '' && $parameterImage == 0) {
       $this->renderTag('og:image', JURI::base(false).$this->params->get('image'.$suffix, ''), $type);
+      $imgSet = True;
+    }
+
+    // Still no image? Use default one if it's set
+    if ($imgSet == False && $this->params->get('default_og_image', '') != '') {
+      $this->renderTag('og:image', JURI::base(false).$this->params->get('default_og_image', ''), $type);
+      $imgSet = True;
     }
 
     // END IMAGE
